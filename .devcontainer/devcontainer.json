@@ -1,0 +1,37 @@
+{
+  "name": "sentinelai",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venvs/sentinelai",
+    "UV_LINK_MODE": "copy"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "installOhMyZsh": false,
+      "upgradePackages": true
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "astral-sh.uv"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/home/vscode/.venvs/sentinelai/bin/python",
+        "python.terminal.activateEnvironment": false,
+        "files.eol": "\n",
+        "jupyter.kernels.excludePythonEnvironments": []
+      }
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+}

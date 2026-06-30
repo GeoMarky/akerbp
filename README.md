@@ -3,10 +3,9 @@
 A small, readable mock of the SentinelAI case study on the open **SKAB** dataset.
 Demonstrates deliberately weak **current controls** vs an improved design with:
 
-- 1D-CNN detector with **value + mask + dt** channels (honors missing data)
-- **Temperature scaling** + **conformal prediction** (prediction sets)
+- 1D-CNN detector
+- **Temperature scaling** 
 - Explicit **policy layer** (expected cost, dwell, hysteresis, abstain)
-- **Quantile** and **heteroscedastic** regression with a "new sensor" demo
 
 ## Setup
 
@@ -43,9 +42,8 @@ uv run jupyter lab notebooks/
 ## Notebooks
 
 1. `01_explore_skab.ipynb` — data + gap injection
-2. `02_weak_baseline.ipynb` — forward-fill, fixed 0.5, auto-trip
-3. `03_calibration_conformal_policy.ipynb` — improved path
-4. `04_quantile_heteroscedastic_newsensor.ipynb` — regression + new sensor
+2. `02_calibration_policy.ipynb` — weak controls vs improved path (calibration, conformal, policy)
+3. `04_quantile_heteroscedastic_newsensor.ipynb` — regression + new sensor: WIP - look at constraining uncertainty
 
 ## Mapping to the case
 
