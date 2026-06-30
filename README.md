@@ -45,6 +45,11 @@ uv run jupyter lab notebooks/
 2. `02_calibration_policy.ipynb` — weak controls vs improved path (calibration, conformal, policy)
 3. `04_quantile_heteroscedastic_newsensor.ipynb` — regression + new sensor: WIP - look at constraining uncertainty
 
+## TODO (prioritized)
+
+1. **Gap handling**: robust missing-data path: coverage gate before scoring, and tests around `make_window()` / `inject_gaps` edge cases.
+2. **OOD / abstain detection**: detect out-of-distribution inputs and route them to abstain instead of auto-tripping.
+
 ## Mapping to the case
 
 | Current control (weak) | Improved control |

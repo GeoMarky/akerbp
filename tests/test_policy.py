@@ -25,14 +25,16 @@ def test_hysteresis_gate_arms_and_latches():
 
 def test_abstain_on_low_coverage():
     policy = PolicyLayer()
-    rec = policy.decide(0.9, 0.9, ["hazard"], coverage=0.5)
+    rec = policy.decide(0.9, 0.9, ood_score=0.0, coverage=0.5)
     assert rec.action == "abstain"
     assert "coverage" in rec.reason
 
 
-def test_abstain_on_ambiguous_conformal_set():
+def test_abstain_on_persistent_ood():
     policy = PolicyLayer()
-    rec = policy.decide(0.5, 0.5, ["nominal", "hazard"], coverage=0.95)
+    policy.reset()
+    for _ in range(2):
+        rec = policy.decide(0.5, 0.5, ood_score=0.9, coverage=0.95)
     assert rec.action == "abstain"
 
 
@@ -41,7 +43,7 @@ def test_dwell_suppresses_single_spike():
     policy.reset()
     actions = []
     for p in [P_BELOW_COST_VOTE, P_SPIKE, P_BELOW_COST_VOTE, P_BELOW_COST_VOTE, P_BELOW_COST_VOTE]:
-        rec = policy.decide(p, p, ["hazard"], coverage=1.0)
+        rec = policy.decide(p, p, coverage=1.0)
         actions.append(rec.action)
     assert "alarm" not in actions or actions.count("alarm") <= 1
 
@@ -51,7 +53,7 @@ def test_alarm_after_persistent_elevation():
     policy.reset()
     last_action = "nominal"
     for _ in range(6):
-        rec = policy.decide(P_PERSISTENT, P_PERSISTENT, ["hazard"], coverage=1.0)
+        rec = policy.decide(P_PERSISTENT, P_PERSISTENT, coverage=1.0)
         last_action = rec.action
     assert last_action == "alarm"
 
